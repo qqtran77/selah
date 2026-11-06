@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selah: Holy Bible — Contemplative Scripture, Prayer & Reconciliation</title>
+  <meta name="description" content="A sacred space for contemplative Scripture reading, liturgical prayer, Rosary bead counter, encrypted prayer intentions, and sacrament of reconciliation. 100% offline & private.">
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <style>
+    :root {
+      --bg-cream: #F8F5EE;
+      --bg-card: #FFFFFF;
+      --bg-card-alt: #F3EFE6;
+      --text-primary: #2D2319;
+      --text-secondary: #6B5E51;
+      --text-muted: #8F8273;
+      --accent-warm: #8B5A2B;
+      --accent-gold: #C59A4E;
+      --accent-hover: #6E441D;
+      --border-subtle: #E6DFD3;
+      --border-card: rgba(139, 90, 43, 0.12);
+      --font-serif: "Baskerville", "Georgia", "Garamond", "Times New Roman", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-soft: 0 8px 30px rgba(45, 35, 25, 0.06);
+      --shadow-hover: 0 14px 40px rgba(45, 35, 25, 0.12);
+      --max-width: 1140px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-cream);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(248, 245, 238, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 24px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover, nav a:focus-visible {
+      color: var(--accent-warm);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--text-primary);
+      color: #FFFFFF !important;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(45, 35, 25, 0.16);
+      text-decoration: none;
+    }
+
+    .cta-btn:hover {
+      background-color: var(--accent-warm);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(139, 90, 43, 0.25);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 72px 24px 48px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: rgba(139, 90, 43, 0.08);
+      color: var(--accent-warm);
+      border: 1px solid rgba(139, 90, 43, 0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--text-primary);
+      max-width: 860px;
+      margin: 0 auto 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .app-store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #000000;
+      color: #FFFFFF;
+      padding: 12px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+
+    .app-store-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .app-store-badge svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    .app-store-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    .app-store-text span:first-child {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .app-store-text span:last-child {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .secondary-btn:hover {
+      background-color: var(--bg-card-alt);
+      border-color: var(--accent-warm);
+    }
+
+    .security-tags {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .security-tag-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Mockup Showcase */
+    .mockup-container {
+      max-width: 980px;
+      margin: 48px auto 0;
+      padding: 0 20px;
+    }
+
+    .mockup-img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(45, 35, 25, 0.15);
+      border: 1px solid var(--border-card);
+    }
+
+    /* Features Section */
+    section {
+      padding: 80px 24px;
+    }
+
+    .section-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 56px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .feature-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background-color: var(--bg-card-alt);
+      color: var(--accent-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      border: 1px solid rgba(139, 90, 43, 0.1);
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .feature-card p {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Pricing Section */
+    .pricing-section {
+      background-color: var(--bg-card-alt);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 28px;
+      max-width: 980px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--accent-warm);
+      box-shadow: 0 12px 36px rgba(139, 90, 43, 0.16);
+      transform: scale(1.03);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--accent-warm);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(139, 90, 43, 0.3);
+      white-space: nowrap;
+    }
+
+    .pricing-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .pricing-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      min-height: 42px;
+    }
+
+    .price-box {
+      margin-bottom: 24px;
+    }
+
+    .price-amount {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .price-period {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .price-subtext {
+      font-size: 0.88rem;
+      color: var(--accent-warm);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .price-features svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--accent-warm);
+      margin-top: 3px;
+    }
+
+    .pricing-btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .pricing-btn.primary {
+      background-color: var(--accent-warm);
+      color: #FFFFFF;
+    }
+
+    .pricing-btn.primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .pricing-btn.secondary {
+      background-color: var(--bg-card-alt);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .pricing-btn.secondary:hover {
+      background-color: #EAE4D7;
+    }
+
+    /* Policy & Legal Content */
+    .policy-container {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-card);
+      padding: clamp(32px, 5vw, 64px);
+      box-shadow: var(--shadow-soft);
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .policy-container h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .policy-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .policy-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin: 28px 0 12px;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+
+    .policy-body h4 {
+      font-size: 1.1rem;
+      margin: 18px 0 8px;
+      color: var(--text-primary);
+    }
+
+    .policy-body p, .policy-body ul {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .policy-body ul {
+      padding-left: 24px;
+    }
+
+    .policy-body li {
+      margin-bottom: 6px;
+    }
+
+    .highlight-box {
+      background-color: var(--bg-cream);
+      border-left: 4px solid var(--accent-warm);
+      padding: 16px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Support Section */
+    .support-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .support-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: var(--bg-card-alt);
+      color: var(--accent-warm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .support-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .support-card p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+    }
+
+    .support-email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--text-primary);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .support-email-btn:hover {
+      background-color: var(--accent-warm);
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 48px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    details {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 18px 24px;
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+    }
+
+    details[open] {
+      border-color: var(--accent-warm);
+    }
+
+    summary {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      outline: none;
+      user-select: none;
+    }
+
+    details p {
+      margin-top: 14px;
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      line-height: 1.65;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--text-primary);
+      color: #EFEBE5;
+      padding: 48px 24px 32px;
+      margin-top: auto;
+    }
+
+    .footer-wrap {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding-bottom: 28px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #FFFFFF;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #CFC5B8;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: #9C9184;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+      .pricing-card.featured {
+        transform: none;
+      }
+      .footer-top, .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand" aria-label="Selah: Holy Bible Home">
+        <img src="assets/icon.png" alt="Selah Icon" class="brand-logo" width="40" height="40">
+        <span class="brand-name">Selah: Holy Bible</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#contemplation">Devotion</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#terms">Terms</a></li>
+          <li><a href="#support">Support</a></li>
+        </ul>
+      </nav>
+      <a href="#pricing" class="cta-btn">
+        <span>Get Selah</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge-pill">
+        <span>✦</span> Sacred Space &bull; Contemplative Stillness
+      </div>
+      <h1>A Sanctuary for Contemplative Scripture, Prayer & Reconciliation</h1>
+      <p class="hero-subtitle">
+        Immerse yourself in Scripture without distraction. Deepen your faith with guided stillness breathwork, tactile Rosary counter, private encrypted intentions, and liturgical examination of conscience.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pricing" class="app-store-badge" aria-label="Download on Apple App Store">
+          <svg viewBox="0 0 170 170" aria-hidden="true">
+            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.34-5.99-9.13-10.77-19.46-14.34-30.98-3.58-11.53-5.37-22.39-5.37-32.6 0-14.78 3.7-27.24 11.09-37.38 7.39-10.14 17.07-15.35 29.04-15.63 4.58 0 9.87 1.25 15.89 3.75 6.02 2.5 10.15 3.75 12.39 3.75 1.74 0 5.87-1.3 12.39-3.88 6.52-2.58 12.18-3.75 16.98-3.5 12.63.63 22.86 5.16 30.7 13.59-10.88 6.53-16.21 15.66-16 27.38.22 9.13 3.65 16.97 10.3 23.51 6.64 6.54 14.68 10.24 24.12 11.09-2.61 8.04-5.98 16.09-10.12 24.13zm-28.93-107.5c0-7.39 2.61-14.24 7.83-20.55 5.22-6.3 11.64-10.05 19.26-11.25 1.09 7.61-1.3 14.57-7.18 20.88-5.87 6.3-12.51 10.05-19.91 10.92z"/>
+          </svg>
+          <div class="app-store-text">
+            <span>Download on the</span>
+            <span>App Store</span>
+          </div>
+        </a>
+
+        <a href="#privacy" class="secondary-btn">
+          <span>Read Privacy Guarantee</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+
+      <div class="security-tags">
+        <span class="security-tag-item">🔒 100% On-Device AES-256-GCM</span>
+        <span class="security-tag-item">📡 Zero Cloud Tracking</span>
+        <span class="security-tag-item">✨ English &amp; Español</span>
+      </div>
+
+      <div class="mockup-container">
+        <img src="assets/preview.png" alt="Selah Holy Bible App Showcase" class="mockup-img" loading="eager" width="980" height="600">
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+      <div class="section-wrap">
+        <div class="section-header">
+          <h2>Crafted for Reverence and Deep Focus</h2>
+          <p>Every interaction is designed to draw you closer to God in peace, privacy, and liturgical authenticity.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <article class="feature-card">
+            <div class="feature-icon">📖</div>
+            <h3>Contemplative Scripture Feed</h3>
+            <p>Experience the Bible in an elegant, distraction-free vertical flow. Complete with Verse of the Day, daily reflections, and seamless bilingual support in English and Spanish.</p>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="feature-card">
+            <div class="feature-icon">🕯️</div>
+            <h3>Virtual Candle &amp; Encrypted Intentions</h3>
+            <p>Light a vigil candle with a gentle hold gesture and haptic heartbeat. Keep personal prayer petitions and confidential voice notes encrypted locally with AES-256-GCM.</p>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="feature-card">
+            <div class="feature-icon">📿</div>
+            <h3>Rosary &amp; Chotki Bead Counter</h3>
+            <p>Tactile prayer beads with subtle vibration impulses, decade tracking, mystery contemplation, and boundary-safe undo for seamless, blind-friendly prayer.</p>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="feature-card">
+            <div class="feature-icon">🕊️</div>
+            <h3>Guided Pacing Prayer &amp; Breathwork</h3>
+            <p>Begin with calming 4-4-4-4 box breathing stillness, followed by auto-scrolling liturgical prayers (The Lord’s Prayer, Hail Mary, Glory Be, Act of Contrition).</p>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Guía para el Confesionario</h3>
+            <p>A faithful companion inside the confessional box. Includes complete 4-step reconciliation rites, examination of conscience notes, 120s auto-lock, and zero-disk panic shredder.</p>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="feature-card">
+            <div class="feature-icon">🌿</div>
+            <h3>100% Offline &amp; Private</h3>
+            <p>No mandatory accounts, no cloud servers storing your private confessions, and no third-party behavioral analytics. Your sacred prayer life stays entirely on your device.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+      <div class="section-wrap">
+        <div class="section-header">
+          <h2>Simple, Transparent Subscriptions</h2>
+          <p>Support continuous independent development with no ads, no trackers, and complete peace of mind.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Monthly -->
+          <div class="pricing-card">
+            <div>
+              <h3 class="pricing-title">Selah Monthly</h3>
+              <p class="pricing-desc">Flexible month-to-month prayer companion. Cancel anytime.</p>
+              <div class="price-box">
+                <span class="price-amount">$9.99</span>
+                <span class="price-period">/ month</span>
+              </div>
+              <ul class="price-features">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Full offline Bible access</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Encrypted prayer intentions &amp; voice memos</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tactile Rosary &amp; Chotki counter</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Billed monthly via Apple ID</li>
+              </ul>
+            </div>
+            <a href="https://apps.apple.com/app/id6756558351" class="pricing-btn secondary">Subscribe Monthly</a>
+          </div>
+
+          <!-- Yearly (Featured) -->
+          <div class="pricing-card featured">
+            <div class="card-badge">Most Popular &bull; 7-Day Free Trial</div>
+            <div>
+              <h3 class="pricing-title">Selah Yearly</h3>
+              <p class="pricing-desc">Annual devotion commitment with our best value and free trial.</p>
+              <div class="price-box">
+                <span class="price-amount">$29.99</span>
+                <span class="price-period">/ year</span>
+                <div class="price-subtext">Just $2.49/month &bull; Save 75%</div>
+              </div>
+              <ul class="price-features">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg><strong>7-Day Free Trial included</strong></li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>All current &amp; future contemplative tools</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Guía para el Confesionario &amp; Panic Shredder</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Interactive Lock Screen &amp; Home Screen Widgets</li>
+              </ul>
+            </div>
+            <a href="https://apps.apple.com/app/id6756558351" class="pricing-btn primary">Start 7-Day Free Trial</a>
+          </div>
+
+          <!-- Lifetime -->
+          <div class="pricing-card">
+            <div>
+              <h3 class="pricing-title">Selah Lifetime</h3>
+              <p class="pricing-desc">Pay once, own forever. Perpetual license for your lifetime devotion.</p>
+              <div class="price-box">
+                <span class="price-amount">$59.99</span>
+                <span class="price-period">/ one-time</span>
+              </div>
+              <ul class="price-features">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>One-time payment &bull; Never renews</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Family Sharing eligible (up to 5 members)</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>All future major version updates included</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Direct developer priority support</li>
+              </ul>
+            </div>
+            <a href="https://apps.apple.com/app/id6756558351" class="pricing-btn secondary">Get Lifetime Access</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Policy Section -->
+    <section id="privacy">
+      <div class="section-wrap">
+        <article class="policy-container">
+          <h2>Privacy Policy</h2>
+          <div class="policy-date">Last Updated: November 6, 2026 &bull; Published by 77AM LLC</div>
+
+          <div class="policy-body">
+            <div class="highlight-box">
+              <strong>Core Privacy Guarantee:</strong> Selah: Holy Bible is architected as a local-first, privacy-respecting application. We believe your prayers, confessions, and spiritual reflections are profoundly personal. We do not sell, track, upload, or collect your personal data.
+            </div>
+
+            <h3>1. Information We Do Not Collect</h3>
+            <p>Unlike conventional modern applications, Selah does not require you to create an account, register an email address, or provide personal identity details to use its features. We strictly operate with:</p>
+            <ul>
+              <li><strong>Zero Cloud Databases:</strong> We do not operate remote databases storing your private notes, prayer petitions, or confessions.</li>
+              <li><strong>Zero Behavioral Tracking:</strong> We do not embed Facebook SDK, Google Analytics, Firebase Analytics, Mixpanel, or third-party behavioral profiling trackers.</li>
+              <li><strong>Zero Advertisements:</strong> We do not sell ad space or share advertising identifiers (IDFA) with data brokers.</li>
+            </ul>
+
+            <h3>2. On-Device Encryption &amp; Security Architecture</h3>
+            <p>All sensitive personal devotion data recorded within the application is protected using industry-grade cryptography:</p>
+            <ul>
+              <li><strong>AES-256-GCM Encryption:</strong> Your prayer intentions, answers to prayers, voice memos, and examination of conscience notes are encrypted using AES-256 in Galois/Counter Mode (GCM) with Authenticated Additional Data (AAD).</li>
+              <li><strong>Hardware-Backed Keychain Storage:</strong> Cryptographic keys are generated locally and stored inside the iOS Keychain using <code>kSecAttrAccessibleWhenUnlockedThisDeviceOnly</code>, preventing keys from ever leaving the physical device or migrating via iTunes/iCloud unencrypted backups.</li>
+              <li><strong>Atomic Cryptographic Shredder:</strong> When you tap "Borrar ahora" (Shred Now) in the Confessional Companion or delete an intention, data is overwritten and purged immediately from local memory and storage.</li>
+            </ul>
+
+            <h3>3. Device Permissions &amp; Microphone Usage</h3>
+            <p>Selah requests device microphone access solely for the optional voice recording feature within <em>Virtual Candle &amp; Intentions</em>:</p>
+            <ul>
+              <li><strong>Microphone Usage Description:</strong> The microphone is utilized strictly when you explicitly tap the record button to capture a personal spoken prayer petition.</li>
+              <li><strong>Local Audio Encoding:</strong> Recorded audio is converted directly into on-device encrypted storage. At no point is your voice memo uploaded to any external server or transcribed through cloud speech APIs.</li>
+            </ul>
+
+            <h3>4. In-App Purchases &amp; Apple Media Services</h3>
+            <p>All payment transactions, subscription billing, and renewals are handled exclusively by Apple via your Apple ID account and official StoreKit 2 APIs. 77AM LLC never receives or stores your credit card numbers, billing addresses, or banking details. Apple handles payment processing according to the <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy</a>.</p>
+
+            <h3>5. Children's Privacy (COPPA &amp; GDPR Compliance)</h3>
+            <p>Selah is safe for users of all ages, including families and children. Because we collect zero personally identifiable information (PII) from any user, we comply fully with the Children’s Online Privacy Protection Act (COPPA) and EU GDPR provisions.</p>
+
+            <h3>6. Contact Regarding Privacy</h3>
+            <p>If you have any questions or concerns regarding our privacy practices or security architecture, please contact us at:</p>
+            <p><strong>77AM LLC</strong><br>Email: <a href="mailto:77amllc@gmail.com">77amllc@gmail.com</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Terms of Service & EULA Section -->
+    <section id="terms">
+      <div class="section-wrap">
+        <article class="policy-container">
+          <h2>Terms of Service &amp; EULA</h2>
+          <div class="policy-date">Effective Date: November 6, 2026 &bull; Published by 77AM LLC</div>
+
+          <div class="policy-body">
+            <h3>1. Acceptance of Terms</h3>
+            <p>By downloading, installing, or using <strong>Selah: Holy Bible</strong> ("the Application"), you agree to be bound by these Terms of Service and End User License Agreement ("EULA"), as well as Apple’s Standard Licensed Application End User License Agreement (<a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">Apple Standard EULA</a>).</p>
+
+            <h3>2. Subscriptions &amp; Auto-Renewal Terms</h3>
+            <p>Selah offers auto-renewing subscriptions and one-time in-app purchases:</p>
+            <ul>
+              <li><strong>Selah Yearly ($29.99/year):</strong> Includes a 7-day free trial where indicated. Unless cancelled at least 24 hours prior to the end of the trial period, your Apple ID account will be charged $29.99 for one year of service. The subscription automatically renews each year until cancelled.</li>
+              <li><strong>Selah Monthly ($9.99/month):</strong> Billed monthly to your Apple ID account. Automatically renews each month unless auto-renew is disabled at least 24 hours before the current period ends.</li>
+              <li><strong>Selah Lifetime Access ($59.99 one-time):</strong> Grants perpetual access to all current and future premium devotion features without recurring fees.</li>
+            </ul>
+
+            <h3>3. Managing and Cancelling Subscriptions</h3>
+            <p>You can manage or cancel your subscriptions at any time through your iOS device settings:</p>
+            <div class="highlight-box">
+              <strong>How to Cancel:</strong> Open <em>Settings</em> on your iPhone or iPad &rarr; Tap your <em>Apple ID (Name)</em> at the top &rarr; Tap <em>Subscriptions</em> &rarr; Select <em>Selah: Holy Bible</em> &rarr; Tap <em>Cancel Subscription</em>.
+            </div>
+            <p>If you cancel during an active billing cycle, you will continue to have full access to Selah Pro features until the conclusion of that billing period. Refunds are governed exclusively by Apple Media Services refund policies at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a>.</p>
+
+            <h3>4. Intellectual Property &amp; Sacred Text Rights</h3>
+            <p>All software code, graphic designs, audio files, icons, and interfaces of Selah: Holy Bible are the property of 77AM LLC. Scripture texts and liturgical translations are sourced in accordance with applicable public domain and copyright permissions.</p>
+
+            <h3>5. Disclaimer of Warranties</h3>
+            <p>The Application is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind. 77AM LLC makes no guarantees that application performance will be uninterrupted or error-free.</p>
+
+            <h3>6. Governing Law</h3>
+            <p>These terms shall be governed by and construed in accordance with the laws of the United States, without giving effect to any principles of conflicts of law.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support">
+      <div class="section-wrap">
+        <div class="support-card">
+          <div class="support-icon">✉️</div>
+          <h3>We are here to assist your spiritual journey</h3>
+          <p>Have questions about Selah, need assistance with your subscription, or want to suggest a prayer or translation?</p>
+          <a href="mailto:77amllc@gmail.com?subject=Selah%20Holy%20Bible%20Support" class="support-email-btn">
+            <span>Contact Support: 77amllc@gmail.com</span>
+          </a>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Can I use Selah completely offline?</summary>
+            <p>Yes. All canonical scripture, reading plans, examination of conscience questions, and personal prayer tools operate 100% locally on your iPhone without requiring an active internet connection.</p>
+          </details>
+
+          <details>
+            <summary>Are my voice recordings and confessional notes safe?</summary>
+            <p>Absolutely. All personal notes, prayers, and recorded voice memos are protected on-device with AES-256-GCM authenticated encryption. Encryption keys reside in the hardware-backed iOS Secure Enclave Keychain and are never sent to any cloud server.</p>
+          </details>
+
+          <details>
+            <summary>How does the 7-day free trial work?</summary>
+            <p>When you select the Selah Yearly plan, you receive 7 full days of free access to all premium features. You can cancel at any time in your iPhone Settings at least 24 hours before the trial ends without being charged.</p>
+          </details>
+
+          <details>
+            <summary>How do I restore my purchases on a new iPhone?</summary>
+            <p>Simply open Selah, navigate to <em>More &rarr; Restore Purchases</em> (or tap <em>Restore</em> on the onboarding paywall). StoreKit 2 will automatically verify your Apple ID receipt and restore your access immediately.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-wrap">
+      <div class="footer-top">
+        <a href="#" class="footer-brand">
+          <img src="assets/icon.png" alt="Selah Logo" width="32" height="32" style="border-radius: 8px;">
+          <span>Selah: Holy Bible</span>
+        </a>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms of Service</a>
+          <a href="#support">Support</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 77AM LLC. All rights reserved. Selah: Holy Bible is a registered product of 77AM LLC.</p>
+        <p>Support &amp; Inquiries: <a href="mailto:77amllc@gmail.com" style="color: #FFFFFF; text-decoration: underline;">77amllc@gmail.com</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
